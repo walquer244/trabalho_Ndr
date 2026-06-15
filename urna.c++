@@ -10,8 +10,8 @@ const int numCandidatos = 4;
 int votos[numCandidatos] = {0, 0, 0, 0};
 
 // Dados dos candidatos
-String candidatos[numCandidatos] = {"Savio", "Bolsonaro", "Raphinha", "Nulo"};
-int codigos[numCandidatos] = {1, 2, 7, 0}; // 0 é o código para Nulo
+String candidatos[numCandidatos] = {"Savio", "Mossoro", "Raphinha", "Nulo"};
+int codigos[numCandidatos] = {22, 3, 7, 0}; // 0 é o código para Nulo
 
 void setup() {
   Serial.begin(9600);
@@ -19,9 +19,9 @@ void setup() {
   pinMode(buzzerPin, OUTPUT);
   
   // Tela de boas-vindas
-  lcd.print("  Urna Eletronica");
+  lcd.print(" Urna Eletronica");
   lcd.setCursor(0, 1);
-  lcd.print("  Bem-vindo!");
+  lcd.print(" Bem-vindo!");
   tone(buzzerPin, 2000, 300); // Som de inicialização
   delay(2000);
   
@@ -80,7 +80,7 @@ void loop() {
       lcd.print("Codigo Invalido!");
       lcd.setCursor(0, 1);
       lcd.print("Tente novamente.");
-      Serial.println("> Erro: Código '" + entrada + "' não reconhecido.");
+      Serial.println("> Erro: Codigo '" + entrada + "' nao reconhecido.");
       
       // Bip de erro (som mais grave)
       tone(buzzerPin, 400, 300);
@@ -92,7 +92,7 @@ void loop() {
 
 void iniciarVotacao() {
   Serial.println("\n--- INICIANDO VOTAÇÃO ---");
-  Serial.println("Digite o código do candidato:");
+  Serial.println("Digite o codigo do candidato:");
   for (int i = 0; i < numCandidatos; i++) {
     Serial.print(codigos[i]);
     Serial.print(" -> ");
@@ -106,13 +106,13 @@ void mostrarCandidatos() {
   lcd.clear();
   // Linha 1: Candidatos 1 e 2
   lcd.print(String(codigos[0]) + ":" + candidatos[0]);
-  lcd.setCursor(8, 0); // Ajuste para caber melhor
+  lcd.setCursor(0, 1); // Ajuste para caber melhor
   lcd.print(String(codigos[1]) + ":" + candidatos[1]);
-  
+  delay(2000);
+  lcd.clear();
   // Linha 2: Candidatos 3 e 4
-  lcd.setCursor(0, 1);
   lcd.print(String(codigos[2]) + ":" + candidatos[2]);
-  lcd.setCursor(8, 1);
+  lcd.setCursor(0, 1);
   lcd.print(String(codigos[3]) + ":" + candidatos[3]);
   
   delay(4000); // Tempo para ler a lista
@@ -170,4 +170,3 @@ void apurar() {
     Serial.println(" foi eleito!");
   }
 }   
-
